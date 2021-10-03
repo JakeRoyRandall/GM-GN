@@ -1,43 +1,23 @@
 const main = async () => {
-	const waveContractFactory = await hre.ethers.getContractFactory('WavePortal');
-	const waveContract = await waveContractFactory.deploy({
-	  value: hre.ethers.utils.parseEther('0.1'),
-	});
-	await waveContract.deployed();
-	console.log('Contract addy:', waveContract.address);
+	const GM_ContractFactory = await hre.ethers.getContractFactory('GM_Contract');
+	const GN_ContractFactory = await hre.ethers.getContractFactory('GN_Contract');
+
+	const GM_Contract = await GM_ContractFactory.deploy(); await GM_Contract.deployed(); 
+	console.log('GM Contract addy:', GM_Contract.address);
+
+	const GN_Contract = await GN_ContractFactory.deploy(); await GN_Contract.deployed(); 
+	console.log('GN Contract addy:', GN_Contract.address);
+	
+	const GM_Txn = await GM_Contract.gm('gm'); await GM_Txn.wait();
+	const GN_Txn = await GN_Contract.gn('gn'); await GN_Txn.wait();
+
+	const getAllGMs = await GM_Contract.getAllGMs(); console.log(getAllGMs);
+	const getAllGNs = await GN_Contract.getAllGNs(); console.log(getAllGNs);
+};
   
-	let contractBalance = await hre.ethers.provider.getBalance(
-	  waveContract.address
-	);
-	console.log(
-	  'Contract balance:',
-	  hre.ethers.utils.formatEther(contractBalance)
-	);
-  
-	/*
-	 * Let's try two waves now
-	 */
-	let waveTxn = await waveContract.wave('This is wave #1');
-	await waveTxn.wait();
-    
-	contractBalance = await hre.ethers.provider.getBalance(waveContract.address);
-	console.log(
-	  'Contract balance:',
-	  hre.ethers.utils.formatEther(contractBalance)
-	);
-  
-	let allWaves = await waveContract.getAllWaves();
-	console.log(allWaves);
-  };
-  
-  const runMain = async () => {
-	try {
-	  await main();
-	  process.exit(0);
-	} catch (error) {
-	  console.log(error);
-	  process.exit(1);
-	}
-  };
-  
-  runMain();
+const runMain = async () => {
+	try { await main(); process.exit(0); } 
+	catch (error) { console.log(error); process.exit(1); }
+};
+
+runMain();

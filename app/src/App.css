@@ -1,34 +1,55 @@
-.mainContainer {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-top: 64px;
-}
+/* generinc container class */
 
-.dataContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 600px;
-}
+.container { display: flex; justify-content: center; align-items: center; width: 100vw;}
 
-.header {
-  text-align: center;
-  font-size: 32px;
-  font-weight: 600;
-}
+/* main container */
 
-.bio {
-  text-align: center;
-  color: gray;
-  margin-top: 16px;
-}
+.main { flex-direction: column; height: 100vh; }
 
-.waveButton {
-  cursor: pointer;
-  margin-top: 16px;
-  padding: 8px;
-  border: 0;
-  border-radius: 5px;
-  
-}
+/* headrow container with logo and socialrow subsections and related styling */
+
+.head { justify-content: space-around; height: 10vh; background-color: #ffcd4b}
+
+.logo { color: black }
+
+.btn { height: 50px; width: 100px; cursor: pointer; border: 0; border-radius: 50px; font-size: larger; font-weight: bold; min-width: 300px; }
+
+.connectBtn { background-color: white; color: black; }
+
+.socialRow { height: inherit; display: flex; align-items: center;}
+
+.icon { height: 50%; margin-right: 10px; cursor: pointer;}
+
+/* primary daytime & nightime containers */
+
+.gm { height: 50%; background: linear-gradient(#334ed4, #fff6c6); }
+
+.emoji { width: fit-content; height: fit-content; position: absolute; }
+
+.sun { left: calc(50% - 91px); }
+
+.moon { left: calc(50% - 80px); }
+
+.gn { height: 50%; background: linear-gradient(#030926, #0d4c79); }
+
+/* generic section class defining 1/2 of each primary container */
+
+.section { width: 50%; margin: 1%; }
+
+/* button section and related styling */
+
+.btnSection { flex-direction: column; width: 20%; }
+
+.gmHeading { color: black; font-size: 144px; font-weight: bold; }
+
+.gnHeading { color: white; font-size: 144px; font-weight: bold; }
+
+.gmBtn { background-color: white; color: black; }
+
+.gnBtn { background-color: black; color: white; }
+
+/* message section and related styling */
+
+.msgSection { flex-direction: column; }
+
+.msg { background-color: OldLace; margin-top: 16px; padding: 8px; }

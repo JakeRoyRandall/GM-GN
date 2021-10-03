@@ -1,25 +1,23 @@
 const main = async () => {
-	// to learn more about signers visit: https://docs.ethers.io/v5/api/signer/#Signer
-	const [deployer] = await hre.ethers.getSigners();
-	const accountBalance = await deployer.getBalance();
+	const GM_ContractFactory = await hre.ethers.getContractFactory('GM_Contract');
+	const GN_ContractFactory = await hre.ethers.getContractFactory('GN_Contract');
 
-	console.log(`Deploying contracts with account: ${deployer.address}`)
-	console.log(`Account balance: ${accountBalance}`)
+	const GM_Contract = await GM_ContractFactory.deploy(); await GM_Contract.deployed(); 
+	console.log('GM Contract addy:', GM_Contract.address);
 
-	const Token = await hre.ethers.getContractFactory("WavePortal");
-	const portal = await Token.deploy();
+	const GN_Contract = await GN_ContractFactory.deploy(); await GN_Contract.deployed(); 
+	console.log('GN Contract addy:', GN_Contract.address);
+	
+	const GM_Txn = await GM_Contract.gm('gm'); await GM_Txn.wait();
+	const GN_Txn = await GN_Contract.gn('gn'); await GN_Txn.wait();
 
-	console.log(`WavePortal address ${portal.address}`)
+	const getAllGMs = await GM_Contract.getAllGMs(); console.log(getAllGMs);
+	const getAllGNs = await GN_Contract.getAllGNs(); console.log(getAllGNs);
 };
-
+  
 const runMain = async () => {
-	try {
-		await main();
-		process.exit(0);
-	} catch (error) {
-		console.error(error);
-		process.exit(1);
-	}
+	try { await main(); process.exit(0); } 
+	catch (error) { console.log(error); process.exit(1); }
 };
 
 runMain();
